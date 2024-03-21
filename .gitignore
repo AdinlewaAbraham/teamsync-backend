@@ -1,0 +1,10 @@
+# Backend .gitignore
+
+# Ignore build output and node_modules
+/dist/
+/node_modules/
+
+# Ignore environment files
+.env
+.env.*
+.vercel

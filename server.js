@@ -1,23 +1,25 @@
+require("module-alias/register");
 const express = require("express");
-const workspace = require("./routes/workspace/workspaceRoute");
-const auth = require("./routes/auth/auth");
-const project = require("./routes/project/projectRoute");
-const task = require("./routes/task/taskRoute");
-const section = require("./routes/section/sectionRoute");
-const user = require("./routes/user/UserRoute");
+const workspace = require("@routes/workspace/workspaceRoute");
+const auth = require("@routes/auth/auth");
+const project = require("@routes/project/projectRoute");
+const task = require("@routes/task/taskRoute");
+const section = require("@routes/section/sectionRoute");
+const user = require("@routes/user/UserRoute");
 require("dotenv").config();
 const cors = require("cors");
 const session = require("express-session");
-const authMiddleware = require("./middleware/validateUserTokenHandler");
-const { socketConnection } = require("./utils/socket-io");
-const { sendMessage } = require("./utils/socket-io");
+const authMiddleware = require("@middleware/validateUserTokenHandler");
+const { socketConnection } = require("@utils/socket-io");
+const { sendMessage } = require("@utils/socket-io");
 
 const MongoDBStore = require("connect-mongodb-session")(session);
 
 const port = process.env.PORT || 5000;
-const db = require("./config/dbConnection");
+const db = require("@config/dbConnection");
 const passport = require("passport");
-const { User } = require("./models/userModel");
+const { User } = require("@models/userModel");
+const { mongoConnectionString } = require("@constants/db");
 const app = express();
 
 const server = require("http").createServer(app);
@@ -26,7 +28,7 @@ socketConnection(server);
 server.listen(port);
 
 const store = new MongoDBStore({
-  uri: process.env.CONNECTION_STRING,
+  uri: mongoConnectionString,
   collection: "sessions",
 });
 

@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
+const { mongoConnectionString } = require("@constants/db");
 
-const connectionString = process.env.CONNECTION_STRING;
-
-mongoose.connect(connectionString, {
+mongoose.connect(mongoConnectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

@@ -4,22 +4,33 @@ const { Project } = require("../../models/projectModel");
 const { User } = require("../../models/userModel");
 
 const getWorkspace = asyncHandler(async (req, res) => {
-  const workspace = await Workspace.findById(req.params.id)
-    .populate({
-      path: "members",
-      options: { limit: 5 },
-    })
-    .populate({
-      path: "projects",
-      model: Project,
-      populate: {
-        path: "members.user",
-        model: User,
-        options: { limit: 3 },
-      },
-    })
-    .exec();
-  res.status(200).json(workspace);
+  try {
+    console.log("this is workspaceID " + req.params.id);
+    const workspace = await Workspace.findById(req.params.id)
+      .populate({
+        path: "members",
+        options: { limit: 5 },
+      })
+      .populate({
+        path: "projects",
+        model: Project,
+        populate: {
+          path: "members.user",
+          model: User,
+          options: { limit: 3 },
+        },
+      })
+      .exec();
+
+    if (!workspace) {
+      return res.status(404); //.json({ message: "Workspace not found" });
+    }
+
+    res.status(200).json(workspace);
+  } catch (error) {
+    console.error(error); // Log the error for debugging
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 const createWorkspace = asyncHandler(async (req, res) => {
   console.log(req.body);

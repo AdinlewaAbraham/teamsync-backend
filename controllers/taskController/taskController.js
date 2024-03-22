@@ -3,7 +3,7 @@ const { Task } = require("../../models/taskModel");
 const { Section } = require("../../models/sectionModel");
 const { Project } = require("../../models/projectModel");
 const { sendMessage } = require("../../utils/socket-io");
-const { findMinFreeRowNumber } = require("../../utils/findMinFreeRowNumber");
+const { findMinFreeRowNumber } = require("@utils/findMinFreeRowNumber");
 
 const getTask = asyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id);

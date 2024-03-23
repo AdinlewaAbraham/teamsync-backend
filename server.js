@@ -12,6 +12,7 @@ const session = require("express-session");
 const authMiddleware = require("@middleware/validateUserTokenHandler");
 const { socketConnection } = require("@utils/socket-io");
 const { sendMessage } = require("@utils/socket-io");
+const allowedCorsOrigins = require("@constants/cors");
 
 const MongoDBStore = require("connect-mongodb-session")(session);
 
@@ -41,13 +42,7 @@ app.use(
   })
 );
 const corsOptions = {
-  origin: [
-    "https://team-sync-five.vercel.app",
-    "http://localhost:3000",
-    "https://teamsync-six.vercel.app",
-    "https://teamsync-six.vercel.app/",
-    "https://teamsync-seven.vercel.app",
-  ],
+  origin: allowedCorsOrigins,
   credentials: true,
 };
 

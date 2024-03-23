@@ -1,8 +1,10 @@
+const allowedCorsOrigins = require("@constants/cors");
+
 let io;
 exports.socketConnection = (server) => {
   io = require("socket.io")(server, {
     cors: {
-      origin: ["http://localhost:3000", "https://team-sync-five.vercel.app"],
+      origin: allowedCorsOrigins,
       methods: ["GET", "POST"],
     },
   });

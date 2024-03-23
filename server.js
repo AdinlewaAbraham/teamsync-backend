@@ -46,6 +46,7 @@ const corsOptions = {
     "http://localhost:3000",
     "https://teamsync-six.vercel.app",
     "https://teamsync-six.vercel.app/",
+    "https://teamsync-seven.vercel.app",
   ],
   credentials: true,
 };
